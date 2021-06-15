@@ -5,9 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App url='https://youtu.be/BoGa0b46p_w'/>,
   document.getElementById('root')
 );
 
