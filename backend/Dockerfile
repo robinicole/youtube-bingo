@@ -1,14 +1,14 @@
-# Specify a base image
-FROM node:14.5.0 as build-deps
+FROM python:3.9
 
-# Create working directory and copy the app before running yarn install as the artifactory
-# credentials can be inside .npmrc
-WORKDIR /usr/src/app
-COPY package.json .
-RUN yarn install
+ENV PIP_DISABLE_PIP_VERSION_CHECK=on
 
-COPY . ./
-EXPOSE 8000
-# Run yarn install
+RUN pip install poetry
 
-CMD ["node", "src/server.js"]
+WORKDIR /app
+COPY poetry.lock pyproject.toml /app/
+
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-interaction
+
+COPY . /app
+CMD poetry run uvicorn --host 0.0.0.0 app.main:app
