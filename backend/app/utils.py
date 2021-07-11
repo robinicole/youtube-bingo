@@ -6,6 +6,17 @@ def parse_output(transcript: dict, words: List[str]):
     """
     Parse a transcript and only keep the part of it which contain the words 
     in the words list
+    Input: 
+        transcript: [{
+            'text': .......
+        }]
+    Output: 
+        [
+            {
+                text: .....
+                words: [w1, w2, ....]
+            }
+        ]
     """
     output = []
     transcript = deepcopy(transcript)
@@ -15,6 +26,6 @@ def parse_output(transcript: dict, words: List[str]):
             if word in transcript_part['text'].lower()
         ]
         if words_in_transcript_part:
-            transcript_part['words'] = words_in_transcript_part #words_in_transcript_part
+            transcript_part['words'] = words_in_transcript_part
             output.append(transcript_part)
     return output
